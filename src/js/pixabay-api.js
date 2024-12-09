@@ -10,8 +10,9 @@ const BASE_URL = "https://pixabay.com/api/";
 const API_KEY = "47376974-17318822de3408abf70e5a971";
 
 
- async function getPictures(query) {
-        const response = await axios(BASE_URL, {
+async function getPictures(query) {
+    try {
+            const response = await axios(BASE_URL, {
             params: {
                 key: API_KEY,
                 q: query,
@@ -22,17 +23,14 @@ const API_KEY = "47376974-17318822de3408abf70e5a971";
                 per_page: perPage,
             },
         });
-        return response.data;
+        return response.data;  
+    } catch(error){
+        throw new Error('Failed to fetch pictures');
+     }
+   
         
     
-    // catch (error) {
-    //     iziToast.error({
-    //         title: "Error",
-    // message: "Something went wrong. Please try again later!",
-    // position: "topRight",
-    //     })
-       
-    // }
+   
 }
 
  async function addPages() {
