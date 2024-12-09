@@ -11,7 +11,6 @@ const API_KEY = "47376974-17318822de3408abf70e5a971";
 
 
  async function getPictures(query) {
-    try {
         const response = await axios(BASE_URL, {
             params: {
                 key: API_KEY,
@@ -25,14 +24,15 @@ const API_KEY = "47376974-17318822de3408abf70e5a971";
         });
         return response.data;
         
-    } catch (error) {
-        iziToast.error({
-            title: "Error",
-    message: "Something went wrong. Please try again later!",
-    position: "topRight",
-        })
+    
+    // catch (error) {
+    //     iziToast.error({
+    //         title: "Error",
+    // message: "Something went wrong. Please try again later!",
+    // position: "topRight",
+    //     })
        
-    }
+    // }
 }
 
  async function addPages() {

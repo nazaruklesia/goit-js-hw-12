@@ -83,42 +83,45 @@ async function handlerSearch(event) {
 
 } 
 
-  
-async function handlerLoadMore() {
-
-    addPages();
-    const query = document.querySelector(".input-form").value.trim();
-
-
+ async function handlerLoadMore() {
     try {
+        await addPages();
+
+        const query = formSearch.elements.query.value.trim();
+
+        if (!query) {
+            iziToast.error({
+                title: "Error",
+                message: "Search query is empty!",
+                position: "topRight",
+            });
+            return;
+        }
+
         const data = await getPictures(query);
-        gallery.insertAdjacentHTML("beforeend", reflectionPictures(data.hits));
-        lightbox.refresh();
-        if (page * perPage >= data.totalHits) {
+
+        if (data.hits.length >= data.totalHits) {
             btnLoadMore.style.display = "none";
             iziToast.info({
-        message: "You've reached the end of search results.",
-        position: "topRight",
-      });
-            
+                message: "You've reached the end of search results.",
+                position: "topRight",
+            });
+            return;
         }
+
+        gallery.insertAdjacentHTML("beforeend", reflectionPictures(data.hits));
+        lightbox.refresh();
 
         const cardHeight = gallery.firstElementChild.getBoundingClientRect().height;
         window.scrollBy({
             top: cardHeight * 2,
-      behavior: "smooth",
-        })
+            behavior: "smooth",
+        });
+     } catch(error) { error => console.log(error.message); } 
     
-
-    } catch(error) {
-        iziToast.error({
-            title: "Error",
-      message: "Error fetching more images!",
-      position: "topRight",
-        })
-    }
-
+    
 }
+
 
 
 
