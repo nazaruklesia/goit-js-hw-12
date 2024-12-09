@@ -1,4 +1,5 @@
 import axios from "axios";
+import iziToast from "izitoast";
 export { getPictures, addPages, resetPage };
 
 let page = 1;
@@ -22,17 +23,20 @@ const API_KEY = "47376974-17318822de3408abf70e5a971";
                 per_page: perPage,
             },
         });
-        return response;
+        return response.data;
         
-    } catch {
-        error => {
-            alert(error.massage)
-        }
+    } catch (error) {
+        iziToast.error({
+            title: "Error",
+    message: "Something went wrong. Please try again later!",
+    position: "topRight",
+        })
+       
     }
 }
 
  async function addPages() {
-    pade += 1;
+    page += 1;
 }
 
  async function resetPage() {

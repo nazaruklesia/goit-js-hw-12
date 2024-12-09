@@ -19,7 +19,7 @@ function reflectionPictures(pictures) {
  }
 
 
-function clearGalery(galleryElement) {
+function clearGallery(galleryElement) {
     galleryElement.innerHTML = "";
 }
  
