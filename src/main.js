@@ -55,13 +55,13 @@ async function handlerSearch(event) {
     
   try {
     const data = await getPictures(query);
-  if (!data.hits.length) { 
-                iziToast.info({
-                    title: "No Results",
-                  message: "Sorry, there are no images matching your search query. Please try again!",
-                    position: "topRight",
-                });
-                return;
+      if (!data.hits.length) {
+          iziToast.info({
+              title: "No Results",
+              message: "Sorry, there are no images matching your search query. Please try again!",
+              position: "topRight",
+          });
+          return;
   }
    
 

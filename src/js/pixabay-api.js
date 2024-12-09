@@ -1,5 +1,5 @@
 import axios from "axios";
-import iziToast from "izitoast";
+// import iziToast from "izitoast";
 export { getPictures, addPages, resetPage };
 
 let page = 1;
