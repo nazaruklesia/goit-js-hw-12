@@ -8,7 +8,20 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
+<header class="container-header">
+<form class="form-search" action="submit" id="search-form">
+  <input class="input-form" type="text" name="query" placeholder="Search images...">
+  <button class="btn-form" type="submit" >Search</button>
+</input>
+</form>
+ </header>
+<main>
+  <div class="loader" style="display: none">Loading...</div>
 
+  <ul class="gallery"></ul>
+  <button class="js-load-more" style="display: none;">Load More</button>
+
+</main>
 
  
 
