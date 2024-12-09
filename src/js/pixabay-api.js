@@ -1,15 +1,15 @@
 import axios from "axios";
-
-
-
+export { getPictures, addPages, resetPage };
 
 let page = 1;
 const perPage = 15;
+
+
 const BASE_URL = "https://pixabay.com/api/";
 const API_KEY = "47376974-17318822de3408abf70e5a971";
 
 
-async function getPictures(query) {
+ async function getPictures(query) {
     try {
         const response = await axios(BASE_URL, {
             params: {
@@ -29,5 +29,12 @@ async function getPictures(query) {
             alert(error.massage)
         }
     }
-    console.log(response.data);
+}
+
+ async function addPages() {
+    pade += 1;
+}
+
+ async function resetPage() {
+    page = 1;
 }
