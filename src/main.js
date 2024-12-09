@@ -117,8 +117,13 @@ async function handlerSearch(event) {
             top: cardHeight * 2,
             behavior: "smooth",
         });
-     } catch(error) { error => console.log(error.message); } 
-    
+     } catch (error) {
+        iziToast.error({
+            title: "Error",
+            message: "Error fetching more images!",
+            position: "topRight",
+        });
+    }
     
 }
 
