@@ -22,6 +22,10 @@ let lightbox = new SimpleLightbox(".gallery-item", {
 formSearch.addEventListener("submit", handlerSearch);
 btnLoadMore.addEventListener("click", handlerLoadMore);
 
+
+let currentHits = 0;
+
+
 async function handlerSearch(event) {
   event.preventDefault();
   
@@ -39,6 +43,7 @@ async function handlerSearch(event) {
   clearGallery(gallery);
   showLoader(loader);
   resetPage();
+  currentHits = 0;  
 
   try {
     const data = await getPictures(query);
@@ -54,7 +59,17 @@ async function handlerSearch(event) {
 
     gallery.innerHTML = reflectionPictures(data.hits);
     lightbox.refresh();
-    showLoadMoreButton(btnLoadMore);
+    currentHits += data.hits.length;  
+
+    if (currentHits >= data.totalHits) {
+      hideLoadMoreButton(btnLoadMore);
+      iziToast.info({
+        message: "You've reached the end of search results.",
+        position: "topRight",
+      });
+    } else {
+      showLoadMoreButton(btnLoadMore);
+    }
 
   } catch (error) {
     iziToast.error({
@@ -68,7 +83,14 @@ async function handlerSearch(event) {
   }
 }
 
+
+
+
+
+
+
 async function handlerLoadMore() {
+  showLoader(loader);
   try {
     await addPages();
 
@@ -85,7 +107,9 @@ async function handlerLoadMore() {
 
     const data = await getPictures(query);
 
-    if (data.hits.length >= data.totalHits) {
+    currentHits += data.hits.length;
+
+    if (currentHits >= data.totalHits) {
       hideLoadMoreButton(btnLoadMore);
       iziToast.info({
         message: "You've reached the end of search results.",
@@ -110,5 +134,7 @@ async function handlerLoadMore() {
       position: "topRight",
     });
     hideLoadMoreButton(btnLoadMore);
+  } finally {
+    hideLoader(loader);
   }
 }

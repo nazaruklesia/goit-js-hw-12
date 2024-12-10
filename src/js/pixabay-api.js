@@ -22,14 +22,14 @@ async function getPictures(query) {
                 page,
                 per_page: perPage,
             },
-        });
+            });
+        console.log(response.data);
         return response.data;  
-    } catch(error){
+    } catch (error) {
+        console.error("Error fetching pictures:", error.message);
         throw new Error('Failed to fetch pictures');
      }
-   
-        
-    
+ 
    
 }
 
